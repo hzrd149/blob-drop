@@ -4,7 +4,7 @@ import type { BlobRow, TokenRow } from "./types";
 // Blob operations
 export const insertBlob = (blob: BlobRow) => {
   const stmt = db.prepare(`
-    INSERT INTO blobs (sha256, size, type, uploaded, expires)
+    INSERT OR REPLACE INTO blobs (sha256, size, type, uploaded, expires)
     VALUES (?, ?, ?, ?, ?)
   `);
   return stmt.run(
@@ -27,7 +27,7 @@ export const deleteBlob = (sha256: string) => {
 };
 
 // Token operations
-export const insertToken = (token: TokenRow) => {
+export const insertToken = (token: Omit<TokenRow, "id">) => {
   const stmt = db.prepare(`
     INSERT INTO tokens (token, mint, amount)
     VALUES (?, ?, ?)
@@ -35,12 +35,14 @@ export const insertToken = (token: TokenRow) => {
   return stmt.run(token.token, token.mint, token.amount);
 };
 
-export const getToken = (token: string) => {
-  const stmt = db.prepare("SELECT * FROM tokens WHERE token = ?");
-  return stmt.get(token) as TokenRow | null;
-};
-
-export const deleteToken = (token: string) => {
-  const stmt = db.prepare("DELETE FROM tokens WHERE token = ?");
-  return stmt.run(token);
+/**
+ * Delete tokens by their ids
+ * @param ids - The ids of the tokens to delete
+ */
+export const deleteTokens = (ids: number[]) => {
+  db.transaction(() => {
+    for (const id of ids) {
+      db.prepare(`DELETE FROM tokens WHERE id = ?`).run(id);
+    }
+  })();
 };

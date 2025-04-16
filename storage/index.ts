@@ -22,6 +22,7 @@ export async function saveBlob(
     : sha256;
   const filepath = join(STORAGE_DIR, filename);
   await writeFile(filepath, data);
+  files.push(filename);
   return sha256;
 }
 
@@ -29,7 +30,9 @@ export async function saveBlob(
 export async function deleteBlob(sha256: string): Promise<void> {
   const filename = getBlobPath(sha256);
   if (!filename) return;
+
   await unlink(filename);
+  files = files.filter((file) => file !== filename);
 }
 
 /** Returns true if a blob exists */

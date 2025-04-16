@@ -24,7 +24,8 @@ db.run(`
 // Create the tokens table
 db.run(`
   CREATE TABLE IF NOT EXISTS tokens (
-    token TEXT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    token TEXT NOT NULL,
     mint TEXT NOT NULL,
     amount INTEGER NOT NULL
   )

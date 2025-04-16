@@ -58,14 +58,12 @@ export async function handleUploadRequest(req: Request): Promise<Response> {
   let sha256: string | undefined = undefined;
   try {
     // Accept upload
-    const blob = await req.blob();
-    const buffer = await blob.arrayBuffer();
+    const buffer = await req.arrayBuffer();
 
     // Save the blob to storage
-    sha256 = await saveBlob(
-      Buffer.from(buffer),
-      mime.extension(blob.type) || undefined,
-    );
+    const type = req.headers.get("content-type") || "application/octet-stream";
+    const ext = mime.extension(type) || undefined;
+    sha256 = await saveBlob(Buffer.from(buffer), ext);
 
     // Swap tokens and save to db
     const wallet = getWallet(token.mint);
@@ -89,7 +87,7 @@ export async function handleUploadRequest(req: Request): Promise<Response> {
     const metadata: BlobRow = {
       sha256,
       size: parseInt(contentLength),
-      type: blob.type.split(";")[0],
+      type,
       uploaded: Date.now(),
       expires: Date.now() + STORAGE_DURATION * 1000,
     };
@@ -97,7 +95,18 @@ export async function handleUploadRequest(req: Request): Promise<Response> {
     // Save blob to DB
     await insertBlob(metadata);
 
-    return new Response(JSON.stringify(metadata), {
+    const descriptor = {
+      url: new URL(
+        `/${sha256}` + `${ext ? `.${ext}` : ""}`,
+        req.url,
+      ).toString(),
+      sha256,
+      size: metadata.size,
+      type: metadata.type,
+      uploaded: metadata.uploaded,
+    };
+
+    return new Response(JSON.stringify(descriptor), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

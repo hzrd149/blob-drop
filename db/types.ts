@@ -7,6 +7,7 @@ export interface BlobRow {
 }
 
 export interface TokenRow {
+  id: number;
   token: string;
   mint: string;
   amount: number;
