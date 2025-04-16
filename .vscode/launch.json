@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "bun",
+      "internalConsoleOptions": "neverOpen",
+      "request": "launch",
+      "name": "Run Server",
+      "program": "${workspaceFolder}/index.ts",
+      "cwd": "${workspaceFolder}",
+      "noDebug": true,
+      "watchMode": false
+    }
+  ]
+}
