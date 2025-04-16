@@ -16,7 +16,11 @@ import {
 } from "./utils";
 
 export async function handleUploadRequest(req: Request): Promise<Response> {
-  const contentLength = req.headers.get("content-length");
+  const contentLength =
+    req.method === "HEAD"
+      ? req.headers.get("x-content-length")
+      : req.headers.get("content-length");
+
   if (!contentLength)
     return createErrorResponse("Content-Length header is required", 411);
 

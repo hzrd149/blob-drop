@@ -3,17 +3,22 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@types/mime-types": "^2.1.4",
-    "prettier": "^3.5.3"
-  },
-  "peerDependencies": {
-    "typescript": "^5.8.3"
+  "scripts": {
+    "build": "esbuild --bundle public/main.ts --outfile=public/main.js"
   },
   "dependencies": {
     "@cashu/cashu-ts": "^2.4.1",
     "mime-types": "^3.0.1",
     "nostr-tools": "^2.12.0"
-  }
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/mime-types": "^2.1.4",
+    "esbuild": "^0.25.2",
+    "prettier": "^3.5.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "pnpm@9.15.6+sha512.139cab068fdf0b751268179ac5f909b5be72afb4a75c513d1905d151befc8977b593d3cf8671ed83d4d6637c5c94b98ffbce108125de4a5a27a31233601a99de"
 }
