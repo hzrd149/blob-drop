@@ -6,8 +6,9 @@ A paid blossom server that only stores blobs for a day... just like the flower.
 
 ### Docker
 
-````bash
+```bash
 docker run -d -p 3000:3000 -v $(pwd)/data:/data ghcr.io/hzrd149/morning-glory:latest
+```
 
 ## Local development
 
@@ -34,4 +35,3 @@ Requires `curl` and `nak wallet` to be installed and is hard coded to pay 1 sat 
 ```bash
 bash upload.sh /path/to/file
 ```
-````
