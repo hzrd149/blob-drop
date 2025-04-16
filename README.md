@@ -1,10 +1,16 @@
 # Morning Glory
 
-A paid blossom server that only stores blobs for a day.
+A paid blossom server that only stores blobs for a day... just like the flower.
 
 ## Running
 
-### With bunx
+### Docker
+
+```bash
+docker run -d -p 3000:3000 -v $(pwd)/data:/data ghcr.io/hzrd149/morning-glory:latest
+```
+
+### bunx
 
 ```bash
 bunx git+https://github.com/hzrd149/morning-glory.git
