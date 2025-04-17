@@ -13,9 +13,6 @@ RUN bun install
 # Copy the rest of the application
 COPY . .
 
-# Build the application
-RUN bun run build
-
 # Expose the port
 EXPOSE 3000
 

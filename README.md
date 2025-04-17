@@ -2,6 +2,14 @@
 
 A paid blossom server that only stores blobs for a day... just like the flower.
 
+## Features
+
+- [x] [BUD-01](https://github.com/hzrd149/blossom/blob/master/buds/01.md) GET `/:sha256` and HEAD endpoints
+- [x] [BUD-02](https://github.com/hzrd149/blossom/blob/master/buds/02.md) PUT `/upload` endpoint
+- [x] [NUT-23](https://github.com/cashubtc/nuts/pull/239) http cashu payments
+- [ ] Range requests
+- [x] Simple homepage with lightning support
+
 ## Running
 
 ### Docker
@@ -21,14 +29,16 @@ bun install
 To run:
 
 ```bash
-bun run build && bun run index.ts
+bun run index.ts
 ```
 
-This project was created using `bun init` in bun v1.2.4. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## Configuration
+
+The server can be configured using environment variables, see [.env.example](.env.example) for more details.
 
 ## Testing upload
 
-To test file uploads locally, you can use the `upload.sh` script.
+To test file uploads locally, use the `upload.sh` script.
 
 Requires `curl` and `nak wallet` to be installed and is hard coded to pay 1 sat per byte, so maybe use `https://testnut.cashu.space` for testing.
 

@@ -7,19 +7,20 @@ import { PORT } from "./env";
 import { handleUploadRequest } from "./api/upload";
 import handleDownloadRequest from "./api/download";
 
+import homepage from "./homepage/index.html";
+
 const server = Bun.serve({
   port: PORT,
   routes: {
-    // Serve web app
-    "/": { GET: () => new Response(Bun.file("public/index.html")) },
-    "/index.html": { GET: () => new Response(Bun.file("public/index.html")) },
-    "/main.js": { GET: () => new Response(Bun.file("public/main.js")) },
-    "/styles.css": { GET: () => new Response(Bun.file("public/styles.css")) },
-
     // Blossom API
-    "/upload": handleUploadRequest,
-    "/:sha256": handleDownloadRequest,
+    "/upload": async (req) => await handleUploadRequest(req),
+    "/:sha256": async (req) => await handleDownloadRequest(req),
+
+    // fallback to serving web app
+    "/": homepage,
   },
+
+  development: true,
 });
 
 console.log(`Server running at http://localhost:${server.port}`);

@@ -4,17 +4,25 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "esbuild --bundle public/main.ts --outfile=public/main.js"
+    "start": "bun run index.ts"
   },
   "dependencies": {
     "@cashu/cashu-ts": "^2.4.1",
+    "bun-plugin-tailwind": "^0.0.15",
+    "daisyui": "^5.0.23",
     "mime-types": "^3.0.1",
-    "nostr-tools": "^2.12.0"
+    "nostr-tools": "^2.12.0",
+    "qrcode": "^1.5.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^4.1.4"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/mime-types": "^2.1.4",
-    "esbuild": "^0.25.2",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "prettier": "^3.5.3"
   },
   "peerDependencies": {
