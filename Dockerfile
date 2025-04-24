@@ -17,7 +17,8 @@ COPY . .
 EXPOSE 3000
 
 # Set environment variables
-ENV STORAGE_DIR=/data
+ENV STORAGE_DIR=/data/blobs
+ENV DATABASE_PATH=/data/database.sqlite
 
 # Create a volume for the storage
 VOLUME [ "/data" ]
