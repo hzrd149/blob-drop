@@ -15,7 +15,30 @@ A paid blossom server that only stores blobs for a day... just like the flower.
 ### Docker
 
 ```bash
-docker run -d -p 3000:3000 -v $(pwd)/data:/data ghcr.io/hzrd149/morning-glory:latest
+docker run -d -p 3000:3000 -v $(pwd)/data:/data ghcr.io/hzrd149/morning-glory:master
+```
+
+### Docker compose
+
+
+```yaml
+volumes:
+  data: {}
+
+services:
+  blossom:
+    image: ghcr.io/hzrd149/morning-glory:master
+    restart: unless-stopped
+		ports:
+			- 3000:3000
+    environment:
+      PORT: '3000'
+      CASHU_PAYOUT: 'creqA...' # Required
+      STORAGE_DIR: /data/blobs
+      DATABASE_PATH: /data/database.sqlite
+			# ... extra config from .env.example
+    volumes:
+      - data:/data
 ```
 
 ## Local development
