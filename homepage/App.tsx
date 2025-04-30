@@ -188,7 +188,11 @@ export default function FileUpload() {
           <div className="mt-4">
             <p>Scan to pay:</p>
             <a target="_blank" href={`lightning:${quote.request}`}>
-              <img src={qrCode} alt="Payment QR Code" className="mx-auto" />
+              <img
+                src={qrCode}
+                alt="Payment QR Code"
+                className="mx-auto my-2"
+              />
             </a>
 
             <div className="flex gap-2">

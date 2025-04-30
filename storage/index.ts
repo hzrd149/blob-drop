@@ -1,7 +1,7 @@
 import { createHash } from "crypto";
 import { readdirSync } from "fs";
 import { mkdir, unlink, writeFile } from "fs/promises";
-import { join } from "path";
+import { basename, join } from "path";
 import { STORAGE_DIR } from "../env";
 
 // Make sure the storage directory exists
@@ -28,10 +28,11 @@ export async function saveBlob(
 
 /** Deletes a blob from the storage directory */
 export async function deleteBlob(sha256: string): Promise<void> {
-  const filename = getBlobPath(sha256);
-  if (!filename) return;
+  const filepath = getBlobPath(sha256);
+  if (!filepath) return;
 
-  await unlink(filename);
+  await unlink(filepath);
+  const filename = basename(filepath);
   files = files.filter((file) => file !== filename);
 }
 
