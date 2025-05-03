@@ -34,9 +34,10 @@ export async function pruneExpiredBlobs() {
     }
   }
 
-  console.log(
-    `Pruning complete. Deleted ${expiredBlobs.length} expired blobs.`,
-  );
+  if (expiredBlobs.length > 0)
+    console.log(
+      `Pruning complete. Deleted ${expiredBlobs.length} expired blobs.`,
+    );
 }
 
 // Run once on startup
