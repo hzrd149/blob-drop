@@ -38,6 +38,8 @@ export default function FileUpload() {
     setUploadUrl(null);
     setToken(null);
     setError(null);
+    // Remove any URL params
+    window.history.replaceState({}, document.title, window.location.pathname);
   };
 
   const handleFileSelect = useCallback(async (file: File) => {
@@ -139,6 +141,38 @@ export default function FileUpload() {
     }
   }, [quote, token, checkQuote]);
 
+  // Add this useEffect to handle the ?url= param
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlParam = params.get("download");
+    if (urlParam && !file) {
+      setLoading(true);
+      fetch(urlParam)
+        .then(async (res) => {
+          if (!res.ok) throw new Error("Failed to fetch file from URL");
+          const blob = await res.blob();
+          // Try to extract filename from URL
+          const urlParts = urlParam.split("/");
+          const filename = urlParts[urlParts.length - 1] || "downloaded-file";
+          // Guess the type if possible, fallback to blob.type or application/octet-stream
+          const fileType = blob.type || "application/octet-stream";
+          const fileFromUrl = new File([blob], filename, { type: fileType });
+          // Use the same handler as manual file selection
+          handleFileSelect(fileFromUrl);
+        })
+        .catch((err) => {
+          setError(
+            err instanceof Error
+              ? err.message
+              : "Failed to fetch file from URL",
+          );
+        })
+        .finally(() => setLoading(false));
+    }
+    // Only run on mount or when file changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [file, handleFileSelect]);
+
   return (
     <div className="container mx-auto p-4 max-w-md">
       <div className="bg-base-100 shadow-xl p-4">
@@ -147,6 +181,14 @@ export default function FileUpload() {
         <div className="mb-4">
           <p>Files are stored for 24 hours</p>
         </div>
+
+        {/* Show loading spinner if loading and no file is selected */}
+        {loading && !file && (
+          <div className="flex flex-col items-center gap-2 my-8">
+            <span className="loading loading-spinner loading-xl"></span>
+            <p className="text-xl">Downloading file...</p>
+          </div>
+        )}
 
         {/* Show file picker and preview until there is a token */}
         {!token &&
