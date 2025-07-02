@@ -6,7 +6,7 @@ A paid blossom server that only stores blobs for a day... just like the flower.
 
 - [x] [BUD-01](https://github.com/hzrd149/blossom/blob/master/buds/01.md) GET `/:sha256` and HEAD endpoints
 - [x] [BUD-02](https://github.com/hzrd149/blossom/blob/master/buds/02.md) PUT `/upload` endpoint
-- [x] [NUT-23](https://github.com/cashubtc/nuts/pull/239) http cashu payments
+- [x] [NUT-24](https://github.com/cashubtc/nuts/blob/main/24.md) http cashu payments
 - [ ] Range requests
 - [x] Simple homepage with lightning support
 
