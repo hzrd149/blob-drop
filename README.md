@@ -29,14 +29,14 @@ services:
   blossom:
     image: ghcr.io/hzrd149/morning-glory:master
     restart: unless-stopped
-		ports:
-			- 3000:3000
+      ports:
+        - 3000:3000
     environment:
       PORT: '3000'
       CASHU_PAYOUT: 'creqA...' # Required
       STORAGE_DIR: /data/blobs
       DATABASE_PATH: /data/database.sqlite
-			# ... extra config from .env.example
+      # ... extra config from .env.example
     volumes:
       - data:/data
 ```
