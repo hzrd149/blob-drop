@@ -1,3 +1,5 @@
+#!/usr/bin/env bun
+
 import "./env";
 import "./db/index.ts";
 import "./storage/index.ts";

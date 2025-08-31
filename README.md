@@ -1,4 +1,4 @@
-# Morning Glory
+# Blob Drop
 
 A paid blossom server that only stores blobs for a day... just like the flower.
 
@@ -15,7 +15,7 @@ A paid blossom server that only stores blobs for a day... just like the flower.
 ### Docker
 
 ```bash
-docker run -d -p 3000:3000 -v $(pwd)/data:/data ghcr.io/hzrd149/morning-glory:master
+docker run -d -p 3000:3000 -v $(pwd)/data:/data ghcr.io/hzrd149/blob-drop:master
 ```
 
 ### Docker compose
@@ -27,7 +27,7 @@ volumes:
 
 services:
   blossom:
-    image: ghcr.io/hzrd149/morning-glory:master
+    image: ghcr.io/hzrd149/blob-drop:master
     restart: unless-stopped
       ports:
         - 3000:3000

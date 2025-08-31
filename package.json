@@ -1,11 +1,12 @@
 {
-  "name": "morning-glory",
+  "name": "blob-drop",
   "module": "index.ts",
   "type": "module",
   "private": true,
   "scripts": {
     "start": "bun run index.ts"
   },
+  "bin": "index.ts",
   "dependencies": {
     "@cashu/cashu-ts": "^2.4.1",
     "bun-plugin-tailwind": "^0.0.15",
